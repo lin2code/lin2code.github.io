@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>第一篇博客 | 林二狗的博客</title>
+    <title>使用Docker部署WordPress | 林二狗的博客</title>
 
     
 <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -13,27 +13,27 @@
 
 
 <meta name="author" content="林二狗" />
-<meta name="description" content="这是第一篇博客测试" />
+<meta name="description" content="购买服务器注册域名&amp;hellip;. 登录系统先yum update一下 安装docker centos 8先执行以下命令安装一个containerd.io yum install" />
 
 
 
 <meta name="generator" content="Hugo 0.74.3" />
 
-<link rel="canonical" href="https://lin2code.github.io/posts/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" />
+<link rel="canonical" href="https://lin2code.github.io/posts/%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2wordpress/" />
 
 
-<meta property="og:title" content="第一篇博客" />
-<meta property="og:description" content="这是第一篇博客测试" />
+<meta property="og:title" content="使用Docker部署WordPress" />
+<meta property="og:description" content="购买服务器注册域名&hellip;. 登录系统先yum update一下 安装docker centos 8先执行以下命令安装一个containerd.io yum install" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://lin2code.github.io/posts/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" />
-<meta property="article:published_time" content="2020-09-03T19:02:13+08:00" />
-<meta property="article:modified_time" content="2020-09-03T19:02:13+08:00" />
+<meta property="og:url" content="https://lin2code.github.io/posts/%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2wordpress/" />
+<meta property="article:published_time" content="2020-09-08T18:44:41+08:00" />
+<meta property="article:modified_time" content="2020-09-08T18:44:41+08:00" />
 
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="第一篇博客"/>
-<meta name="twitter:description" content="这是第一篇博客测试"/>
+<meta name="twitter:title" content="使用Docker部署WordPress"/>
+<meta name="twitter:description" content="购买服务器注册域名&hellip;. 登录系统先yum update一下 安装docker centos 8先执行以下命令安装一个containerd.io yum install"/>
 
 
 <link rel="stylesheet" href="/css/semantic.min.css" />
@@ -93,7 +93,7 @@
     <section class="ui top attached segment" id="dream-save-post-as-img">
       <header style="margin-top: 0 !important;">
         <h1 class="ui large header">
-          第一篇博客
+          使用Docker部署WordPress
           <div class="sub header">
             @
             
@@ -101,27 +101,129 @@
                 林二狗
               
             
-            · Thursday, Sep 3, 2020
+            · Tuesday, Sep 8, 2020
             · 1 分钟阅读
-            · 更新于 Sep 3, 2020
+            · 更新于 Sep 8, 2020
           </div>
         </h1>
       </header>
 
       
-        <img class="ui image" style="margin-top: 2rem;" src="/img/cover1.jpg" />
+        <img class="ui image" style="margin-top: 2rem;" src="/img/cover3.jpg" />
       
 
-      <article style="margin-top: 2rem;"><p>这是第一篇博客测试</p>
+      <article style="margin-top: 2rem;"><ol>
+<li>
+<p>购买服务器注册域名&hellip;.</p>
+</li>
+<li>
+<p>登录系统先<code>yum update</code>一下</p>
+</li>
+<li>
+<p>安装docker</p>
+<p>centos 8先执行以下命令安装一个containerd.io<br>
+<code>yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm</code></p>
+<p>否则直接执行以下命令安装docker<br>
+<code>curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</code></p>
+<p>启动docker<code>systemctl start docker</code></p>
+</li>
+<li>
+<p>安装python和docker-compose</p>
+<p><code>yum install python3</code>
+<code>pip3 install docker-compose</code></p>
+</li>
+<li>
+<p>在/data/wordpress目录下创建一个docker-compose.yml</p>
+</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#66d9ef">version</span>: <span style="color:#e6db74">&#39;3.1&#39;</span>
+<span style="color:#66d9ef">services</span>:
+  <span style="color:#66d9ef">db</span>:
+    <span style="color:#66d9ef">image</span>: mysql
+    <span style="color:#66d9ef">restart</span>: always
+    <span style="color:#66d9ef">command</span>: --default-authentication-plugin=mysql_native_password
+    <span style="color:#66d9ef">environment</span>:
+      <span style="color:#66d9ef">MYSQL_DATABASE</span>: wordpress
+      <span style="color:#66d9ef">MYSQL_USER</span>: wordpress
+      <span style="color:#66d9ef">MYSQL_PASSWORD</span>: wordpress
+      <span style="color:#66d9ef">MYSQL_RANDOM_ROOT_PASSWORD</span>: <span style="color:#e6db74">&#39;1&#39;</span>
+    <span style="color:#66d9ef">volumes</span>:
+      - db:/var/lib/mysql
+
+  <span style="color:#66d9ef">wordpress</span>:
+    <span style="color:#66d9ef">image</span>: wordpress
+    <span style="color:#66d9ef">restart</span>: always
+    <span style="color:#66d9ef">depends_on</span>:
+      - db
+    <span style="color:#66d9ef">ports</span>:
+      - <span style="color:#ae81ff">18080</span>:<span style="color:#ae81ff">80</span>
+    <span style="color:#66d9ef">environment</span>:
+      <span style="color:#66d9ef">WORDPRESS_DB_HOST</span>: db
+      <span style="color:#66d9ef">WORDPRESS_DB_USER</span>: wordpress
+      <span style="color:#66d9ef">WORDPRESS_DB_PASSWORD</span>: wordpress
+      <span style="color:#66d9ef">WORDPRESS_DB_NAME</span>: wordpress
+    <span style="color:#66d9ef">volumes</span>:
+      - wordpress:/var/www/html
+<span style="color:#66d9ef">volumes</span>:
+  <span style="color:#66d9ef">wordpress</span>:
+  <span style="color:#66d9ef">db</span>:
+
+</code></pre></div><ol start="6">
+<li>
+<p>在/data/wordpress目录下</p>
+<ul>
+<li>
+<p>先执行<code>docker-compose up -d db</code>启动和初始化数据库，启动起了可以<code>docker exec -it db的id /bin/bash</code>进去用mysql命令检查一下用户是否创建好了</p>
+</li>
+<li>
+<p>再执行<code>docker-compose up -d wordpress</code>启动应用</p>
+</li>
+</ul>
+</li>
+<li>
+<p>安装nginx</p>
+<p>自行百度</p>
+</li>
+<li>
+<p>配置nginx</p>
+<p>加入这段，注意proxy_pass里一定要写ip</p>
+</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#66d9ef">server</span> {
+  <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
+  <span style="color:#f92672">server_name</span> <span style="color:#e6db74">hoojoe.com</span>;
+
+  <span style="color:#75715e">#charset koi8-r;
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">access_log</span> <span style="color:#e6db74">/usr/local/nginx/logs/wordpress.access.log</span>;
+  <span style="color:#f92672">set</span> $node_port <span style="color:#ae81ff">18080</span>;
+  <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> {
+    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
+    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
+    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> $http_host;
+    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-NginX-Proxy</span> <span style="color:#e6db74">true</span>;
+    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Upgrade</span> $http_upgrade;
+    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Connection</span> <span style="color:#e6db74">&#34;upgrade&#34;</span>;
+    <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://127.0.0.1:</span>$node_port$request_uri;
+    <span style="color:#f92672">proxy_redirect</span> <span style="color:#66d9ef">off</span>;
+  }
+}
+</code></pre></div><ol start="9">
+<li>
+<p>reload nginx后，确保各个镜像正常运行后，在浏览器中输入网址访问</p>
+<p>God bless you.</p>
+</li>
+</ol>
 </article>
     </section>
 
     <footer class="ui attached segment dream-tags">
       
         
-          <a class="ui label" href="/tags/%E5%8D%9A%E5%AE%A2" title="博客">博客</a>
+          <a class="ui label" href="/tags/docker" title="Docker">Docker</a>
         
-          <a class="ui label" href="/tags/%E7%AC%AC%E4%B8%80" title="第一">第一</a>
+          <a class="ui label" href="/tags/wordpress" title="WordPress">WordPress</a>
+        
+          <a class="ui label" href="/tags/nginx" title="Nginx">Nginx</a>
         
       
       <div
@@ -146,8 +248,8 @@
 
 
           var disqus_config = function () {
-            this.page.url = 'https:\/\/lin2code.github.io\/posts\/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2\/';  
-            this.page.identifier = '\/posts\/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2\/'; 
+            this.page.url = 'https:\/\/lin2code.github.io\/posts\/%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2wordpress\/';  
+            this.page.identifier = '\/posts\/%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2wordpress\/'; 
           };
 
           (function() { 
@@ -196,9 +298,15 @@
   
   <section class="ui attached center aligned segment dream-tags">
     
-      <a class="ui label" href="/tags/%E5%8D%9A%E5%AE%A2" title="博客">博客</a>
+      <a class="ui label" href="/tags/cms" title="cms">cms</a>
     
-      <a class="ui label" href="/tags/%E7%AC%AC%E4%B8%80" title="第一">第一</a>
+      <a class="ui label" href="/tags/docker" title="docker">docker</a>
+    
+      <a class="ui label" href="/tags/nginx" title="nginx">nginx</a>
+    
+      <a class="ui label" href="/tags/wordpress" title="wordpress">wordpress</a>
+    
+      <a class="ui label" href="/tags/%E5%9D%91%E7%88%B9" title="坑爹">坑爹</a>
     
   </section>
   
@@ -218,6 +326,26 @@
         
           <div class="title">
             <i class="dropdown icon"></i>
+            <a href="/categories/%E7%AC%94%E8%AE%B0" class="item">笔记</a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2wordpress/" class="item">使用Docker部署WordPress</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
             <a href="/categories/%E9%9A%8F%E7%AC%94" class="item">随笔</a>
           </div>
           <div class="content">
@@ -225,7 +353,7 @@
             
               <div class="item">
                 <div class="content">
-                  <a href="/posts/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="item">第一篇博客</a>
+                  <a href="/posts/%E8%A2%AB%E5%90%84%E7%A7%8D%E7%A0%B4%E7%8E%A9%E6%84%8F%E6%8A%98%E7%A3%A8%E7%9A%84%E5%87%A0%E5%A4%A9/" class="item">被各种破玩意折磨的几天</a>
                 </div>
               </div>
             
