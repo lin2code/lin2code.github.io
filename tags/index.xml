@@ -7,10 +7,82 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
     <copyright>&lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-nc-sa/4.0/&#34;&gt;&lt;img alt=&#34;知识共享许可协议&#34; style=&#34;border-width:0&#34; src=&#34;https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png&#34; /&gt;&lt;/a&gt;&lt;br /&gt;本作品采用&lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-nc-sa/4.0/&#34;&gt;知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议&lt;/a&gt;进行许可。</copyright>
-    <lastBuildDate>Tue, 08 Sep 2020 18:44:41 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 29 Sep 2020 16:02:02 +0800</lastBuildDate>
     
 	<atom:link href="https://lin2code.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>vscode</title>
+      <link>https://lin2code.github.io/tags/vscode/</link>
+      <pubDate>Tue, 29 Sep 2020 16:02:02 +0800</pubDate>
+      
+      <guid>https://lin2code.github.io/tags/vscode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vue</title>
+      <link>https://lin2code.github.io/tags/vue/</link>
+      <pubDate>Tue, 29 Sep 2020 16:02:02 +0800</pubDate>
+      
+      <guid>https://lin2code.github.io/tags/vue/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>单页应用</title>
+      <link>https://lin2code.github.io/tags/%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Tue, 29 Sep 2020 16:02:02 +0800</pubDate>
+      
+      <guid>https://lin2code.github.io/tags/%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>调试</title>
+      <link>https://lin2code.github.io/tags/%E8%B0%83%E8%AF%95/</link>
+      <pubDate>Tue, 29 Sep 2020 16:02:02 +0800</pubDate>
+      
+      <guid>https://lin2code.github.io/tags/%E8%B0%83%E8%AF%95/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>frp</title>
+      <link>https://lin2code.github.io/tags/frp/</link>
+      <pubDate>Tue, 29 Sep 2020 15:00:00 +0800</pubDate>
+      
+      <guid>https://lin2code.github.io/tags/frp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>windows</title>
+      <link>https://lin2code.github.io/tags/windows/</link>
+      <pubDate>Tue, 29 Sep 2020 15:00:00 +0800</pubDate>
+      
+      <guid>https://lin2code.github.io/tags/windows/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>内网穿透</title>
+      <link>https://lin2code.github.io/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</link>
+      <pubDate>Tue, 29 Sep 2020 15:00:00 +0800</pubDate>
+      
+      <guid>https://lin2code.github.io/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>远程控制</title>
+      <link>https://lin2code.github.io/tags/%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/</link>
+      <pubDate>Tue, 29 Sep 2020 15:00:00 +0800</pubDate>
+      
+      <guid>https://lin2code.github.io/tags/%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Docker</title>

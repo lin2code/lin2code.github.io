@@ -18,7 +18,7 @@
       <pubDate>Tue, 08 Sep 2020 18:44:41 +0800</pubDate>
       
       <guid>https://lin2code.github.io/posts/%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2wordpress/</guid>
-      <description>购买服务器注册域名&amp;hellip;. 登录系统先yum update一下 安装docker centos 8先执行以下命令安装一个containerd.io yum install</description>
+      <description>1. 购买服务器注册域名 2. 登录系统先yum update一下 3. 安装docker centos 8先执行以下命令安装一个containerd.io yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm 否则直接执</description>
     </item>
     
     <item>
@@ -27,7 +27,7 @@
       <pubDate>Tue, 08 Sep 2020 18:00:00 +0800</pubDate>
       
       <guid>https://lin2code.github.io/posts/%E8%A2%AB%E5%90%84%E7%A7%8D%E7%A0%B4%E7%8E%A9%E6%84%8F%E6%8A%98%E7%A3%A8%E7%9A%84%E5%87%A0%E5%A4%A9/</guid>
-      <description>FUCK 这世间怎么就这么多垃圾玩意 走出舒适区被坑爹仍不可避免 二狗从业多年，以前是才疏学浅踩坑正常 而这几天被坑的感觉就是这TMD都是些什么鸡八问题 毫</description>
+      <description>生活不易 二狗叹气 客观正确的选择与及时止损以及在客观正确的道路上持之以恒 是达成目标的走钢丝表演 二狗从业多年，早已踩坑无数，若是眼拙踩了坑，吃一</description>
     </item>
     
   </channel>

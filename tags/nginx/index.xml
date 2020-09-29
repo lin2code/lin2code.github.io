@@ -18,7 +18,7 @@
       <pubDate>Tue, 08 Sep 2020 18:44:41 +0800</pubDate>
       
       <guid>https://lin2code.github.io/posts/%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2wordpress/</guid>
-      <description>购买服务器注册域名&amp;hellip;. 登录系统先yum update一下 安装docker centos 8先执行以下命令安装一个containerd.io yum install</description>
+      <description>1. 购买服务器注册域名 2. 登录系统先yum update一下 3. 安装docker centos 8先执行以下命令安装一个containerd.io yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm 否则直接执</description>
     </item>
     
   </channel>

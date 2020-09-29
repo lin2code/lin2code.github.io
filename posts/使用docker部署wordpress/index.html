@@ -13,7 +13,7 @@
 
 
 <meta name="author" content="林二狗" />
-<meta name="description" content="购买服务器注册域名&amp;hellip;. 登录系统先yum update一下 安装docker centos 8先执行以下命令安装一个containerd.io yum install" />
+<meta name="description" content="1. 购买服务器注册域名 2. 登录系统先yum update一下 3. 安装docker centos 8先执行以下命令安装一个containerd.io yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm 否则直接执" />
 
 
 
@@ -23,7 +23,7 @@
 
 
 <meta property="og:title" content="使用Docker部署WordPress" />
-<meta property="og:description" content="购买服务器注册域名&hellip;. 登录系统先yum update一下 安装docker centos 8先执行以下命令安装一个containerd.io yum install" />
+<meta property="og:description" content="1. 购买服务器注册域名 2. 登录系统先yum update一下 3. 安装docker centos 8先执行以下命令安装一个containerd.io yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm 否则直接执" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://lin2code.github.io/posts/%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2wordpress/" />
 <meta property="article:published_time" content="2020-09-08T18:44:41+08:00" />
@@ -33,7 +33,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="使用Docker部署WordPress"/>
-<meta name="twitter:description" content="购买服务器注册域名&hellip;. 登录系统先yum update一下 安装docker centos 8先执行以下命令安装一个containerd.io yum install"/>
+<meta name="twitter:description" content="1. 购买服务器注册域名 2. 登录系统先yum update一下 3. 安装docker centos 8先执行以下命令安装一个containerd.io yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm 否则直接执"/>
 
 
 <link rel="stylesheet" href="/css/semantic.min.css" />
@@ -112,30 +112,18 @@
         <img class="ui image" style="margin-top: 2rem;" src="/img/cover3.jpg" />
       
 
-      <article style="margin-top: 2rem;"><ol>
-<li>
-<p>购买服务器注册域名&hellip;.</p>
-</li>
-<li>
-<p>登录系统先<code>yum update</code>一下</p>
-</li>
-<li>
-<p>安装docker</p>
+      <article style="margin-top: 2rem;"><h2 id="1-购买服务器注册域名">1. 购买服务器注册域名</h2>
+<h2 id="2-登录系统先yum-update一下">2. 登录系统先<code>yum update</code>一下</h2>
+<h2 id="3-安装docker">3. 安装docker</h2>
 <p>centos 8先执行以下命令安装一个containerd.io<br>
 <code>yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm</code></p>
 <p>否则直接执行以下命令安装docker<br>
 <code>curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</code></p>
-<p>启动docker<code>systemctl start docker</code></p>
-</li>
-<li>
-<p>安装python和docker-compose</p>
+<p>启动docker： <code>systemctl start docker</code></p>
+<h2 id="4-安装python和docker-compose">4. 安装python和docker-compose</h2>
 <p><code>yum install python3</code>
 <code>pip3 install docker-compose</code></p>
-</li>
-<li>
-<p>在/data/wordpress目录下创建一个docker-compose.yml</p>
-</li>
-</ol>
+<h2 id="5-在datawordpress目录下创建一个docker-composeyml">5. 在/data/wordpress目录下创建一个docker-compose.yml</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#66d9ef">version</span>: <span style="color:#e6db74">&#39;3.1&#39;</span>
 <span style="color:#66d9ef">services</span>:
   <span style="color:#66d9ef">db</span>:
@@ -168,9 +156,7 @@
   <span style="color:#66d9ef">wordpress</span>:
   <span style="color:#66d9ef">db</span>:
 
-</code></pre></div><ol start="6">
-<li>
-<p>在/data/wordpress目录下</p>
+</code></pre></div><h2 id="6-在datawordpress目录下">6. 在/data/wordpress目录下</h2>
 <ul>
 <li>
 <p>先执行<code>docker-compose up -d db</code>启动和初始化数据库，启动起了可以<code>docker exec -it db的id /bin/bash</code>进去用mysql命令检查一下用户是否创建好了</p>
@@ -179,16 +165,10 @@
 <p>再执行<code>docker-compose up -d wordpress</code>启动应用</p>
 </li>
 </ul>
-</li>
-<li>
-<p>安装nginx</p>
+<h2 id="7-安装nginx">7. 安装nginx</h2>
 <p>自行百度</p>
-</li>
-<li>
-<p>配置nginx</p>
+<h2 id="8-配置nginx">8. 配置nginx</h2>
 <p>加入这段，注意proxy_pass里一定要写ip</p>
-</li>
-</ol>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#66d9ef">server</span> {
   <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
   <span style="color:#f92672">server_name</span> <span style="color:#e6db74">hoojoe.com</span>;
@@ -207,12 +187,8 @@
     <span style="color:#f92672">proxy_redirect</span> <span style="color:#66d9ef">off</span>;
   }
 }
-</code></pre></div><ol start="9">
-<li>
-<p>reload nginx后，确保各个镜像正常运行后，在浏览器中输入网址访问</p>
+</code></pre></div><h2 id="9-reload-nginx后确保各个镜像正常运行后在浏览器中输入网址访问">9. reload nginx后，确保各个镜像正常运行后，在浏览器中输入网址访问</h2>
 <p>God bless you.</p>
-</li>
-</ol>
 </article>
     </section>
 
@@ -302,11 +278,27 @@
     
       <a class="ui label" href="/tags/docker" title="docker">docker</a>
     
+      <a class="ui label" href="/tags/frp" title="frp">frp</a>
+    
       <a class="ui label" href="/tags/nginx" title="nginx">nginx</a>
+    
+      <a class="ui label" href="/tags/vscode" title="vscode">vscode</a>
+    
+      <a class="ui label" href="/tags/vue" title="vue">vue</a>
+    
+      <a class="ui label" href="/tags/windows" title="windows">windows</a>
     
       <a class="ui label" href="/tags/wordpress" title="wordpress">wordpress</a>
     
+      <a class="ui label" href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F" title="内网穿透">内网穿透</a>
+    
+      <a class="ui label" href="/tags/%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8" title="单页应用">单页应用</a>
+    
       <a class="ui label" href="/tags/%E5%9D%91%E7%88%B9" title="坑爹">坑爹</a>
+    
+      <a class="ui label" href="/tags/%E8%B0%83%E8%AF%95" title="调试">调试</a>
+    
+      <a class="ui label" href="/tags/%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6" title="远程控制">远程控制</a>
     
   </section>
   
@@ -330,6 +322,18 @@
           </div>
           <div class="content">
             <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/vue-cli%E6%90%AD%E5%BB%BA%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8%E5%B9%B6%E4%BD%BF%E7%94%A8vscode%E8%B0%83%E8%AF%95/" class="item">Vue cli搭建单页应用并使用VSCode调试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/%E4%BD%BF%E7%94%A8frp%E8%BF%9B%E8%A1%8Cwindows%E8%BF%9C%E7%A8%8B%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="item">使用frp进行windows远程（内网穿透）</a>
+                </div>
+              </div>
             
               <div class="item">
                 <div class="content">
