@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Nginx使用笔记 | 林二狗的博客</title>
+
+    
+<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+
+
+
+<meta name="author" content="林二狗" />
+<meta name="description" content="Nginx安装启动 1.先安装编译和支持https的组件 yum install gcc-c&#43;&#43; yum install -y pcre pcre-devel yum install -y zlib zlib-devel yum install -y openssl openssl-devel 2.官网下载.tar.gz安装包 执行以下命令安装 tar" />
+
+
+
+<meta name="generator" content="Hugo 0.74.3" />
+
+<link rel="canonical" href="https://lin2code.github.io/posts/nginx%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" />
+
+
+<meta property="og:title" content="Nginx使用笔记" />
+<meta property="og:description" content="Nginx安装启动 1.先安装编译和支持https的组件 yum install gcc-c&#43;&#43; yum install -y pcre pcre-devel yum install -y zlib zlib-devel yum install -y openssl openssl-devel 2.官网下载.tar.gz安装包 执行以下命令安装 tar" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lin2code.github.io/posts/nginx%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" />
+<meta property="article:published_time" content="2020-09-29T16:43:17+08:00" />
+<meta property="article:modified_time" content="2020-09-29T16:43:17+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Nginx使用笔记"/>
+<meta name="twitter:description" content="Nginx安装启动 1.先安装编译和支持https的组件 yum install gcc-c&#43;&#43; yum install -y pcre pcre-devel yum install -y zlib zlib-devel yum install -y openssl openssl-devel 2.官网下载.tar.gz安装包 执行以下命令安装 tar"/>
+
+
+<link rel="stylesheet" href="/css/semantic.min.css" />
+<link rel="stylesheet" href="/css/OverlayScrollbars.min.css" />
+<link rel="stylesheet" href="/css/github-markdown.css" />
+<link rel="stylesheet" href="/css/site.css" />
+
+
+<style>
+  a {
+    color: seagreen !important;
+  }
+</style>
+
+
+
+<style>
+  .inverted a {
+     color: darkseagreen !important;
+  }
+</style>
+
+
+    
+
+
+
+
+  </head>
+
+  
+  <body style="background-image: url(/img/background.jpg);">
+  
+    
+<nav class="ui secondary inverted menu dream-menu">
+
+  <div class="item">
+    <i class="large link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  <div class="item">
+    <i class="large link home icon" title="首页" onclick="window.location.href = 'https:\/\/lin2code.github.io\/'"></i>
+  </div>
+  <div class="item">
+    <i class="large link icon theme-switch" onclick="themeSwitch()"></i>
+  </div>
+  
+</nav>
+
+    <div class="flip-container">
+      <div class="flipper">
+        <section class="front">
+          <div class="dream-max-width">
+            
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single">
+
+    <section class="ui top attached segment" id="dream-save-post-as-img">
+      <header style="margin-top: 0 !important;">
+        <h1 class="ui large header">
+          Nginx使用笔记
+          <div class="sub header">
+            @
+            
+              
+                林二狗
+              
+            
+            · Tuesday, Sep 29, 2020
+            · 2 分钟阅读
+            · 更新于 Sep 29, 2020
+          </div>
+        </h1>
+      </header>
+
+      
+        <img class="ui image" style="margin-top: 2rem;" src="/img/cover6.jpg" />
+      
+
+      <article style="margin-top: 2rem;"><h2 id="nginx安装启动">Nginx安装启动</h2>
+<p>1.先安装编译和支持https的组件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum install gcc-c++
+yum install -y pcre pcre-devel
+yum install -y zlib zlib-devel
+yum install -y openssl openssl-devel
+</code></pre></div><p>2.官网下载.tar.gz安装包 执行以下命令安装</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tar -zxvf nginx-xxx.tar.gz
+cd nginx-xxx.0
+<span style="color:#75715e">#configure的参数用于添加https支持</span>
+bash ./configure --prefix<span style="color:#f92672">=</span>/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module
+make
+make install
+</code></pre></div><p>3.启动、停止nginx：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /usr/local/nginx/sbin/ 或 /usr/sbin/ <span style="color:#75715e">#不同系统和用户安装路径不一样</span>
+./nginx <span style="color:#75715e">#启动</span>
+./nginx -s stop <span style="color:#75715e">#停止</span>
+./nginx -s quit <span style="color:#75715e">#退出</span>
+./nginx -s reload <span style="color:#75715e">#重载</span>
+</code></pre></div><hr>
+<h2 id="添加开机自启动">添加开机自启动</h2>
+<p>在rc.local增加启动代码就可以<br>
+<code>vim /etc/rc.local</code><br>
+增加一行 <code>/usr/local/nginx/sbin/nginx</code> 或 <code>/usr/sbin/nginx</code><br>
+设置执行权限 <code>chmod 755 /etc/rc.local</code></p>
+<hr>
+<h2 id="全局生效nginx命令">全局生效nginx命令</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /etc/profile
+
+<span style="color:#75715e"># 末尾添加</span>
+PATH<span style="color:#f92672">=</span>$PATH:/usr/local/nginx/sbin/nginx  <span style="color:#75715e">#nginx启动文件路径</span>  
+export PATH
+<span style="color:#75715e"># 然后执行</span>
+source /etc/profile
+
+</code></pre></div><hr>
+<h2 id="配置文件">配置文件</h2>
+<p>配置文件路径: <code>/usr/local/nginx/conf/nginx.conf</code> 或 <code>/etc/nginx/nginx.conf</code></p>
+<p>示例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#75715e">#user  nobody;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">worker_processes</span>  <span style="color:#ae81ff">1</span>;
+
+<span style="color:#75715e">#error_log  logs/error.log;
+</span><span style="color:#75715e">#error_log  logs/error.log  notice;
+</span><span style="color:#75715e">#error_log  logs/error.log  info;
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#pid        logs/nginx.pid;
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">events</span> {
+    <span style="color:#f92672">worker_connections</span>  <span style="color:#ae81ff">1024</span>;
+}
+
+<span style="color:#66d9ef">http</span> {
+    <span style="color:#f92672">include</span>       <span style="color:#e6db74">mime.types</span>;
+    <span style="color:#f92672">default_type</span>  <span style="color:#e6db74">application/octet-stream</span>;
+
+    <span style="color:#75715e">#log_format  main  &#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; &#39;
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#                  &#39;$status $body_bytes_sent &#34;$http_referer&#34; &#39;
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#                  &#39;&#34;$http_user_agent&#34; &#34;$http_x_forwarded_for&#34;&#39;;
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">#access_log  logs/access.log  main;
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#tcp_nopush     on;
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#gzip  on;
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">#keepalive_timeout  0;
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">sendfile</span>        <span style="color:#66d9ef">on</span>;
+    <span style="color:#f92672">keepalive_timeout</span>  <span style="color:#ae81ff">600</span>; <span style="color:#75715e">#超时时间
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">client_max_body_size</span> <span style="color:#e6db74">20M</span>; <span style="color:#75715e">#单次上传数据缓冲区最大值
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">underscores_in_headers</span> <span style="color:#66d9ef">on</span>; <span style="color:#75715e">#ctmd 不加这个header中有“_”会忽略
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">#docker中运行WordPress时的配置
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">server</span> {
+        <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
+        <span style="color:#f92672">server_name</span> <span style="color:#e6db74">xxxx.com</span>; <span style="color:#75715e">#绑定的域名 优先使用server_name和请求域名一致的配置
+</span><span style="color:#75715e"></span>
+        <span style="color:#f92672">access_log</span> <span style="color:#e6db74">/usr/local/nginx/logs/wordpress.access.log</span>; <span style="color:#75715e">#该域名的请求日志配置
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">set</span> $node_port <span style="color:#ae81ff">18080</span>; <span style="color:#75715e">#变量 WordPress在docker中暴露的端口
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> {
+            <span style="color:#75715e">#各种转发设置 避免WordPress中静态资源路径不是nginx代理的域名 导致加载不出来
+</span><span style="color:#75715e"></span>            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
+            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
+            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> $http_host;
+            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-NginX-Proxy</span> <span style="color:#e6db74">true</span>;
+            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Upgrade</span> $http_upgrade;
+            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Connection</span> <span style="color:#e6db74">&#34;upgrade&#34;</span>;
+            <span style="color:#75715e">#代理的目标地址 docker运行程序时 一定要用IP而不是localhost！！！
+</span><span style="color:#75715e"></span>            <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://127.0.0.1:</span>$node_port$request_uri;
+            <span style="color:#f92672">proxy_redirect</span> <span style="color:#66d9ef">off</span>;
+            <span style="color:#f92672">client_max_body_size</span> <span style="color:#ae81ff">200m</span>; <span style="color:#75715e">#上传文件大小配置 覆盖全局配置
+</span><span style="color:#75715e"></span>        }
+    }
+
+    <span style="color:#75715e">#转发http到https的配置
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">server</span> {
+        <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
+        <span style="color:#f92672">server_name</span> <span style="color:#e6db74">manage.xxxx.com</span>;
+        <span style="color:#f92672">rewrite</span> <span style="color:#e6db74">^(.*)</span>$ <span style="color:#e6db74">https://</span>$host$1 <span style="color:#e6db74">permanent</span>; <span style="color:#75715e">#将所有http请求通过rewrite重定向到https
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> {
+            <span style="color:#f92672">index</span> <span style="color:#e6db74">index.html</span> <span style="color:#e6db74">index.htm</span>; <span style="color:#75715e">#反向代理目标配置 这里是文件 因为重定向了所以不起作用
+</span><span style="color:#75715e"></span>        }
+    }
+
+    <span style="color:#75715e">#使用https的配置
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">server</span> {
+        <span style="color:#f92672">listen</span> <span style="color:#ae81ff">443</span> <span style="color:#e6db74">ssl</span>; <span style="color:#75715e">#SSL协议端口号为443 此处如未添加ssl可能会造成Nginx无法启动。
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">server_name</span> <span style="color:#e6db74">manage.xxxx.com</span>;
+        <span style="color:#f92672">ssl_certificate</span> <span style="color:#e6db74">cert/manage.hoojoe.com.pem</span>; <span style="color:#75715e">#配置.pem证书文件所在路径
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">ssl_certificate_key</span> <span style="color:#e6db74">cert/manage.hoojoe.com.key</span>; <span style="color:#75715e">#配置.key证书密钥文件路径
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">ssl_session_timeout</span> <span style="color:#ae81ff">5m</span>; <span style="color:#75715e">#超时时间
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">ssl_ciphers</span> <span style="color:#e6db74">ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4</span>; <span style="color:#75715e">#使用此加密套件
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">ssl_protocols</span> <span style="color:#e6db74">TLSv1</span> <span style="color:#e6db74">TLSv1.1</span> <span style="color:#e6db74">TLSv1.2</span>; <span style="color:#75715e">#使用该协议进行配置
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">ssl_prefer_server_ciphers</span> <span style="color:#66d9ef">on</span>;
+        <span style="color:#75715e">#默认地址转发到 https://localhost:8010
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> {
+            <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">https://localhost:8010</span>;
+        }
+        <span style="color:#75715e">#请求地址以api开头的转发到 https://localhost:8009
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">location</span> <span style="color:#e6db74">/api</span> {
+            <span style="color:#f92672">rewrite</span>  <span style="color:#e6db74">^/api/(.*)</span>$ <span style="color:#e6db74">/api/</span>$1 <span style="color:#e6db74">break</span>; <span style="color:#75715e">#使用rewrite实现 反正就这样写
+</span><span style="color:#75715e"></span>            <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">https://localhost:8009</span>;
+            <span style="color:#75715e">#如果后端想获取客户的IP 需要设置这些请求header
+</span><span style="color:#75715e"></span>            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> $host;
+            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
+            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
+        }
+        <span style="color:#f92672">location</span> <span style="color:#e6db74">/hangfire</span> {
+            <span style="color:#f92672">rewrite</span>  <span style="color:#e6db74">^/hangfire/(.*)</span>$ <span style="color:#e6db74">/hangfire/</span>$1 <span style="color:#e6db74">break</span>;
+            <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">https://localhost:8011</span>;
+        }
+    }
+}
+</code></pre></div></article>
+    </section>
+
+    <footer class="ui attached segment dream-tags">
+      
+        
+          <a class="ui label" href="/tags/nginx" title="nginx">nginx</a>
+        
+          <a class="ui label" href="/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86" title="反向代理">反向代理</a>
+        
+          <a class="ui label" href="/tags/wordpress" title="wordpress">wordpress</a>
+        
+          <a class="ui label" href="/tags/docker" title="docker">docker</a>
+        
+          <a class="ui label" href="/tags/https" title="https">https</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+      <footer class="ui attached segment">
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。
+      </footer>
+    
+
+    
+      <footer class="ui bottom attached stacked segment post-disqus-area" data-html2canvas-ignore="true">
+        <div id="disqus_thread"></div>
+        <script>
+          
+
+
+          var disqus_config = function () {
+            this.page.url = 'https:\/\/lin2code.github.io\/posts\/nginx%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0\/';  
+            this.page.identifier = '\/posts\/nginx%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0\/'; 
+          };
+
+          (function() { 
+            var d = document, s = d.createElement('script');
+            s.src = 'https://' + 'lin2code' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </footer>
+    
+    
+    
+
+  </div>
+  <div class="sixteen wide mobile sixteen wide tablet four wide computer column">
+    <article class="dream-header">
+  <section class="ui top attached center aligned segment">
+    <div class="ui small circular image">
+      
+        <img src="/img/avatar.jpg">
+      
+    </div>
+
+    
+    <div class="ui medium header">林二狗 的博客<div class="sub header" style="margin-top: 0.5rem;">生死看淡 不服就干 活</div>
+    </div>
+    
+
+    <div class="ui horizontal list">
+      
+      <a class="item" href="/posts">
+        <i class="archive icon" title="归档"></i>
+      </a>
+      
+      <a class="item" href="/tags">
+        <i class="tags icon" title="所有标签"></i>
+      </a>
+      <a class="item" href="/categories">
+        <i class="th list icon" title="所有分类"></i>
+      </a>
+    </div>
+  </section>
+
+  
+  <section class="ui attached center aligned segment dream-tags">
+    
+      <a class="ui label" href="/tags/cms" title="cms">cms</a>
+    
+      <a class="ui label" href="/tags/docker" title="docker">docker</a>
+    
+      <a class="ui label" href="/tags/frp" title="frp">frp</a>
+    
+      <a class="ui label" href="/tags/https" title="https">https</a>
+    
+      <a class="ui label" href="/tags/mongodb" title="mongodb">mongodb</a>
+    
+      <a class="ui label" href="/tags/nginx" title="nginx">nginx</a>
+    
+      <a class="ui label" href="/tags/redis" title="redis">redis</a>
+    
+      <a class="ui label" href="/tags/vscode" title="vscode">vscode</a>
+    
+      <a class="ui label" href="/tags/vue" title="vue">vue</a>
+    
+      <a class="ui label" href="/tags/windows" title="windows">windows</a>
+    
+      <a class="ui label" href="/tags/wordpress" title="wordpress">wordpress</a>
+    
+      <a class="ui label" href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F" title="内网穿透">内网穿透</a>
+    
+      <a class="ui label" href="/tags/%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8" title="单页应用">单页应用</a>
+    
+      <a class="ui label" href="/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86" title="反向代理">反向代理</a>
+    
+      <a class="ui label" href="/tags/%E5%9D%91%E7%88%B9" title="坑爹">坑爹</a>
+    
+      <a class="ui label" href="/tags/%E8%B0%83%E8%AF%95" title="调试">调试</a>
+    
+      <a class="ui label" href="/tags/%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6" title="远程控制">远程控制</a>
+    
+  </section>
+  
+
+  
+  <section class="ui attached segment dream-categories">
+    <div class="ui accordion">
+      
+      
+      
+      
+      
+
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            <a href="/categories/%E5%90%89%E4%BB%96%E8%B0%B1" class="item">吉他谱</a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/%E5%90%89%E4%BB%96%E8%B0%B1-young-for-you/" class="item">吉他谱 young for you</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            <a href="/categories/%E7%AC%94%E8%AE%B0" class="item">笔记</a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/docker%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E5%8F%8Amongodb%E5%92%8Credis%E7%AD%89%E9%85%8D%E7%BD%AE/" class="item">Docker使用笔记及MongoDB和redis等配置</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/nginx%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" class="item">Nginx使用笔记</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/vue-cli%E6%90%AD%E5%BB%BA%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8%E5%B9%B6%E4%BD%BF%E7%94%A8vscode%E8%B0%83%E8%AF%95/" class="item">Vue cli搭建单页应用并使用VSCode调试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/%E4%BD%BF%E7%94%A8frp%E8%BF%9B%E8%A1%8Cwindows%E8%BF%9C%E7%A8%8B%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="item">使用frp进行windows远程（内网穿透）</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2wordpress&#43;mysql/" class="item">使用Docker部署WordPress&#43;Mysql</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            <a href="/categories/%E9%9A%8F%E7%AC%94" class="item">随笔</a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/%E8%A2%AB%E5%90%84%E7%A7%8D%E7%A0%B4%E7%8E%A9%E6%84%8F%E6%8A%98%E7%A3%A8%E7%9A%84%E5%87%A0%E5%A4%A9/" class="item">被各种破玩意折磨的几天</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+
+      
+    </div>
+  </section>
+  
+
+  <section class="ui attached segment header-socials">
+    <nav class="ui secondary menu dream-menu dream-socials">
+  
+  
+    <div class="item">
+      <a href="mailto:631320085@163.com">
+        <i class=" mail icon" title="Email"></i>
+      </a>
+    </div>
+  
+
+  
+    <div class="item">
+      <a href="https://twitter.com/yourlostpapa" target="_blank">
+        <i class=" twitter icon" title="Twitter"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://instagram.com/0xfade2018" target="_blank">
+        <i class=" instagram icon" title="Instagram"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://github.com/lin2code" target="_blank">
+        <i class=" github icon" title="GitHub"></i>
+      </a>
+    </div>
+  
+
+  
+    <div class="item">
+      <a href="https://www.stackoverflow.com/users/12997179" target="_blank">
+        <i class=" stack overflow icon" title="StackOverflow"></i>
+      </a>
+    </div>
+  
+
+  
+</nav>
+
+  </section>
+
+  <section class="ui bottom attached center aligned segment">
+    
+      <p>© 2020 林二狗的博客</p>
+    
+
+    <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</p>
+
+    
+  </section>
+</article>
+
+  </div>
+</div>
+
+          </div>
+        </section>
+        <section class="back">
+          <div class="dream-max-width">
+            <div class="ui centered relaxed grid dream-grid dream-back">
+  
+  
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">事件</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <table>
+<thead>
+<tr>
+<th>时间</th>
+<th>事件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2020-09-03</td>
+<td>博客上线</td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">关于我</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <ul>
+<li>🔭 I’m currently working on my own</li>
+<li>🌱 I’m currently learning survive</li>
+<li>👯 I’m looking to collaborate on making money</li>
+<li>🤔 I’m looking for help with cash</li>
+<li>💬 Ask me about everthing</li>
+<li>📫 How to reach me: use money</li>
+<li>😄 Pronouns: poorguy</li>
+<li>⚡ Fun fact: poor</li>
+</ul>
+
+        </div>
+      </article>
+    </section>
+  
+
+  <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    <article>
+      <div class="ui top attached segment">
+        <h3 class="ui header">社交链接</h3>
+      </div>
+      <div class="ui bottom attached segment">
+        <nav class="ui secondary menu dream-menu dream-socials">
+  
+  
+    <div class="item">
+      <a href="mailto:631320085@163.com">
+        <i class="large mail icon" title="Email"></i>
+      </a>
+    </div>
+  
+
+  
+    <div class="item">
+      <a href="https://twitter.com/yourlostpapa" target="_blank">
+        <i class="large twitter icon" title="Twitter"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://instagram.com/0xfade2018" target="_blank">
+        <i class="large instagram icon" title="Instagram"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://github.com/lin2code" target="_blank">
+        <i class="large github icon" title="GitHub"></i>
+      </a>
+    </div>
+  
+
+  
+    <div class="item">
+      <a href="https://www.stackoverflow.com/users/12997179" target="_blank">
+        <i class="large stack overflow icon" title="StackOverflow"></i>
+      </a>
+    </div>
+  
+
+  
+</nav>
+
+      </div>
+    </article>
+  </section>
+
+  <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    
+      <footer class="ui segment">
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。
+      </footer>
+    
+  </section>
+
+  
+  
+</div>
+
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+  window.darkNav =  true 
+</script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/theme.js"></script>
+
+    
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+
+
+
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-177179527-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </body>
+</html>

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Docker使用笔记及MongoDB和redis等配置 | 林二狗的博客</title>
+
+    
+<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+
+
+
+<meta name="author" content="林二狗" />
+<meta name="description" content="安装docker 使用脚本自动安装docker CentOS 8先安装 containerd.io yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm docker安装脚本 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun 因为Centos8默认使用podman代" />
+
+
+
+<meta name="generator" content="Hugo 0.74.3" />
+
+<link rel="canonical" href="https://lin2code.github.io/posts/docker%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E5%8F%8Amongodb%E5%92%8Credis%E7%AD%89%E9%85%8D%E7%BD%AE/" />
+
+
+<meta property="og:title" content="Docker使用笔记及MongoDB和redis等配置" />
+<meta property="og:description" content="安装docker 使用脚本自动安装docker CentOS 8先安装 containerd.io yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm docker安装脚本 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun 因为Centos8默认使用podman代" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lin2code.github.io/posts/docker%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E5%8F%8Amongodb%E5%92%8Credis%E7%AD%89%E9%85%8D%E7%BD%AE/" />
+<meta property="article:published_time" content="2020-09-29T18:03:37+08:00" />
+<meta property="article:modified_time" content="2020-09-29T18:03:37+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker使用笔记及MongoDB和redis等配置"/>
+<meta name="twitter:description" content="安装docker 使用脚本自动安装docker CentOS 8先安装 containerd.io yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm docker安装脚本 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun 因为Centos8默认使用podman代"/>
+
+
+<link rel="stylesheet" href="/css/semantic.min.css" />
+<link rel="stylesheet" href="/css/OverlayScrollbars.min.css" />
+<link rel="stylesheet" href="/css/github-markdown.css" />
+<link rel="stylesheet" href="/css/site.css" />
+
+
+<style>
+  a {
+    color: seagreen !important;
+  }
+</style>
+
+
+
+<style>
+  .inverted a {
+     color: darkseagreen !important;
+  }
+</style>
+
+
+    
+
+
+
+
+  </head>
+
+  
+  <body style="background-image: url(/img/background.jpg);">
+  
+    
+<nav class="ui secondary inverted menu dream-menu">
+
+  <div class="item">
+    <i class="large link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  <div class="item">
+    <i class="large link home icon" title="首页" onclick="window.location.href = 'https:\/\/lin2code.github.io\/'"></i>
+  </div>
+  <div class="item">
+    <i class="large link icon theme-switch" onclick="themeSwitch()"></i>
+  </div>
+  
+</nav>
+
+    <div class="flip-container">
+      <div class="flipper">
+        <section class="front">
+          <div class="dream-max-width">
+            
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single">
+
+    <section class="ui top attached segment" id="dream-save-post-as-img">
+      <header style="margin-top: 0 !important;">
+        <h1 class="ui large header">
+          Docker使用笔记及MongoDB和redis等配置
+          <div class="sub header">
+            @
+            
+              
+                林二狗
+              
+            
+            · Tuesday, Sep 29, 2020
+            · 3 分钟阅读
+            · 更新于 Sep 29, 2020
+          </div>
+        </h1>
+      </header>
+
+      
+        <img class="ui image" style="margin-top: 2rem;" src="/img/cover7.jpg" />
+      
+
+      <article style="margin-top: 2rem;"><h2 id="安装docker">安装docker</h2>
+<ul>
+<li>使用脚本自动安装docker</li>
+</ul>
+<p>CentOS 8先安装 containerd.io<br>
+<code>yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm</code></p>
+<p>docker安装脚本<br>
+<code>curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</code></p>
+<p>因为Centos8默认使用podman代替docker，所以需要先安装 containerd.io 再执行以上语句否则报错</p>
+<ul>
+<li>镜像加速设置</li>
+</ul>
+<p>在/etc/docker目录下添加daemon.json文件<br>
+内容：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;registry-mirrors&#34;</span>: [
+    <span style="color:#e6db74">&#34;https://registry.docker-cn.com&#34;</span>,
+    <span style="color:#e6db74">&#34;http://hub-mirror.c.163.com&#34;</span>,
+    <span style="color:#e6db74">&#34;https://docker.mirrors.ustc.edu.cn&#34;</span>,
+    <span style="color:#e6db74">&#34;https://reg-mirror.qiniu.com&#34;</span>
+  ]
+}
+</code></pre></div><p>然后<br>
+<code>systemctl daemon-reload</code><br>
+<code>systemctl restart docker</code></p>
+<hr>
+<h2 id="常用命令">常用命令</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">一、基本命令
+docker version 查看docker版本
+docker info 查看docker详细信息
+docker --help 查看docker命令
+
+二、镜像命令
+docker images 查看docker镜像
+docker images -a 列出本地所有的镜像
+docker images -p 只显示镜像ID
+docker images --digests 显示镜像的摘要信息
+docker images --no-trunc 显示完整的镜像信息
+
+三、容器命令。
+docker run [OPTIONS] IMAGE 根据镜像新建并启动容器
+OPTIONS说明：
+ --name=“容器新名字”：为容器指定一个名称
+ -d：后台运行容器，并返回容器ID，也即启动守护式容器
+ -i：以交互模式运行容器，通常与-t同时使用
+ -t：为容器重新分配一个伪输入终端，通常与-i同时使用
+ -P：随机端口映射
+ -p：指定端口映射，有以下四种格式：
+  ip:hostPort:containerPort
+  ip::containerPort
+  hostPort:containerPort
+  containerPort
+docker ps 列出当前所有正在运行的容器
+docker ps -a 列出所有的容器
+docker ps -l 列出最近创建的容器
+docker ps -n 3列出最近创建的3个容器
+docker ps -q 只显示容器ID
+docker ps --no-trunc 显示当前所有正在运行的容器完整信息
+exit 退出并停止容器
+Ctrl+p+q 只退出容器，不停止容器
+docker start 容器ID或容器名称启动容器
+docker restart 容器ID或容器名称重新启动容器
+docker stop 容器ID或容器名称停止容器
+docker kill 容器ID或容器名称强制停止容器
+docker rm 容器ID或容器名称删除容器
+docker rm -f 容器ID或容器名称强制删除容器
+docker rm -f $(docker ps -a -q) 删除多个容器
+docker logs -f -t --since --tail 容器ID或容器名称查看容器日志
+如：docker logs -f -t --since=”2018-09-10” --tail=10 f9e29e8455a5
+ -f : 查看实时日志
+ -t : 查看日志产生的日期
+ --since : 此参数指定了输出日志开始日期，即只输出指定日期之后的日志
+ --tail=10 : 查看最后的10条日志
+docker top 容器ID或容器名称查看容器内运行的进程
+docker inspect 容器ID或容器名称查看容器内部细节
+docker attach 容器ID进到容器内
+docker exec 容器ID进到容器内
+docker cp 容器ID:容器内的文件路径 宿主机路径从容器内拷贝文件到宿主机.
+如：docker cp f9e29e8455a5:/tmp/yum.log /root
+</code></pre></div><ul>
+<li>进入容器中的命令行 <code>docker exec -it 69d1 /bin/bash</code> 69d1是容器ID</li>
+<li>查看volume <code>docker volume ls</code></li>
+<li>查看volume详情 <code>docker volume inspect xxx</code></li>
+<li>删除volume<code>docker volume rm xxx</code></li>
+<li>查看容器关联的volume<code>docker inspect mongdb | grep Mounts -A 10</code></li>
+<li>删除容器和volume<code>docker rm -V mongodb</code> mongodb是容器名称</li>
+<li>列出无用卷<code>docker volume ls -qf dangling=true</code></li>
+</ul>
+<hr>
+<h2 id="运行mongodb">运行MongoDB</h2>
+<ul>
+<li>docker运行</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker pull mongo
+docker run -itd --name mongodb -p 37017:27017 mongo --auth
+docker exec -it mongodb mongo admin
+</code></pre></div><ul>
+<li>手动运行</li>
+</ul>
+<p>配置yum安装源 <code>vim /etc/yum.repos.d/mongodb-org-4.2.repo</code> 写入以下内容</p>
+<pre><code class="language-conf" data-lang="conf">[mongodb-org-4.2]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc
+</code></pre><p>url可替换为官网最新版本</p>
+<p><code>sudo yum install -y mongodb-org</code> 安装<br>
+<code>sudo systemctl start mongod</code> 启动<br>
+<code>sudo systemctl restart mongod</code> 重启<br>
+<code>sudo systemctl enable mongod</code> 开机启动</p>
+<ul>
+<li>配置修改启用账号并允许远程连接</li>
+</ul>
+<p><code>vim /etc/mongod.conf</code><br>
+net.bindIp 修改值为 0.0.0.0允许所有IP连接<br>
+security.authorization 修改值为 enable<br>
+重启</p>
+<ul>
+<li>初始化用户</li>
+</ul>
+<p>创建用户<br>
+<code>db.createUser({ user: 'adminabc', pwd: 'abcd123', roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] });</code></p>
+<p>如果权限不够<br>
+分配权限 <code>db.grantRolesToUser(&quot;adminabc&quot;, [ { role:&quot;dbOwner&quot;, db:&quot;abcdb&quot;} ]);</code><br>
+或<br>
+修改权限 <code>db.updateUser(&quot;adminabc&quot;,{roles:[ {role:&quot;root&quot;,db:&quot;admin&quot;} ]})</code></p>
+<hr>
+<h2 id="运行redis">运行redis</h2>
+<ul>
+<li>docker运行</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker pull redis
+<span style="color:#75715e">#在root目录添加redis相关文件夹和配置</span>
+<span style="color:#75715e">#docker启动要注释redis.conf中logfile和dir字段</span>
+<span style="color:#75715e">#logfile /var/log/redis/redis.log</span>
+<span style="color:#75715e">#dir /var/lib/redis</span>
+<span style="color:#75715e">#port同启动参数中一致6379</span>
+docker run -itd -p 3679:6379 -v /root/redis/redis.conf:/usr/local/etc/redis/redis.conf -v /root/redis/data/:/data --name myredis redis redis-server /usr/local/etc/redis/redis.conf
+</code></pre></div><ul>
+<li>手动运行</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum install redis
+systemctl start redis
+systemctl enable redis
+</code></pre></div><ul>
+<li>配置等</li>
+</ul>
+<p><code>vim /etc/redis.conf</code><br>
+注释 <code>#bind 127.0.0.1</code> 允许任意ip连接<br>
+取消注释 <code>requirepass abcdefghijk</code> 设置连接密码</p>
+<p><code>systemctl status redis</code> 查看运行状态<br>
+<code>ss -an | grep 6379</code> 查看端口是否listen</p>
+<p>客户端推荐使用AnotherRedisDesktopManager</p>
+</article>
+    </section>
+
+    <footer class="ui attached segment dream-tags">
+      
+        
+          <a class="ui label" href="/tags/docker" title="docker">docker</a>
+        
+          <a class="ui label" href="/tags/mongodb" title="mongodb">mongodb</a>
+        
+          <a class="ui label" href="/tags/redis" title="redis">redis</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+      <footer class="ui attached segment">
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。
+      </footer>
+    
+
+    
+      <footer class="ui bottom attached stacked segment post-disqus-area" data-html2canvas-ignore="true">
+        <div id="disqus_thread"></div>
+        <script>
+          
+
+
+          var disqus_config = function () {
+            this.page.url = 'https:\/\/lin2code.github.io\/posts\/docker%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E5%8F%8Amongodb%E5%92%8Credis%E7%AD%89%E9%85%8D%E7%BD%AE\/';  
+            this.page.identifier = '\/posts\/docker%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E5%8F%8Amongodb%E5%92%8Credis%E7%AD%89%E9%85%8D%E7%BD%AE\/'; 
+          };
+
+          (function() { 
+            var d = document, s = d.createElement('script');
+            s.src = 'https://' + 'lin2code' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </footer>
+    
+    
+    
+
+  </div>
+  <div class="sixteen wide mobile sixteen wide tablet four wide computer column">
+    <article class="dream-header">
+  <section class="ui top attached center aligned segment">
+    <div class="ui small circular image">
+      
+        <img src="/img/avatar.jpg">
+      
+    </div>
+
+    
+    <div class="ui medium header">林二狗 的博客<div class="sub header" style="margin-top: 0.5rem;">生死看淡 不服就干 活</div>
+    </div>
+    
+
+    <div class="ui horizontal list">
+      
+      <a class="item" href="/posts">
+        <i class="archive icon" title="归档"></i>
+      </a>
+      
+      <a class="item" href="/tags">
+        <i class="tags icon" title="所有标签"></i>
+      </a>
+      <a class="item" href="/categories">
+        <i class="th list icon" title="所有分类"></i>
+      </a>
+    </div>
+  </section>
+
+  
+  <section class="ui attached center aligned segment dream-tags">
+    
+      <a class="ui label" href="/tags/cms" title="cms">cms</a>
+    
+      <a class="ui label" href="/tags/docker" title="docker">docker</a>
+    
+      <a class="ui label" href="/tags/frp" title="frp">frp</a>
+    
+      <a class="ui label" href="/tags/https" title="https">https</a>
+    
+      <a class="ui label" href="/tags/mongodb" title="mongodb">mongodb</a>
+    
+      <a class="ui label" href="/tags/nginx" title="nginx">nginx</a>
+    
+      <a class="ui label" href="/tags/redis" title="redis">redis</a>
+    
+      <a class="ui label" href="/tags/vscode" title="vscode">vscode</a>
+    
+      <a class="ui label" href="/tags/vue" title="vue">vue</a>
+    
+      <a class="ui label" href="/tags/windows" title="windows">windows</a>
+    
+      <a class="ui label" href="/tags/wordpress" title="wordpress">wordpress</a>
+    
+      <a class="ui label" href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F" title="内网穿透">内网穿透</a>
+    
+      <a class="ui label" href="/tags/%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8" title="单页应用">单页应用</a>
+    
+      <a class="ui label" href="/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86" title="反向代理">反向代理</a>
+    
+      <a class="ui label" href="/tags/%E5%9D%91%E7%88%B9" title="坑爹">坑爹</a>
+    
+      <a class="ui label" href="/tags/%E8%B0%83%E8%AF%95" title="调试">调试</a>
+    
+      <a class="ui label" href="/tags/%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6" title="远程控制">远程控制</a>
+    
+  </section>
+  
+
+  
+  <section class="ui attached segment dream-categories">
+    <div class="ui accordion">
+      
+      
+      
+      
+      
+
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            <a href="/categories/%E5%90%89%E4%BB%96%E8%B0%B1" class="item">吉他谱</a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/%E5%90%89%E4%BB%96%E8%B0%B1-young-for-you/" class="item">吉他谱 young for you</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            <a href="/categories/%E7%AC%94%E8%AE%B0" class="item">笔记</a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/docker%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E5%8F%8Amongodb%E5%92%8Credis%E7%AD%89%E9%85%8D%E7%BD%AE/" class="item">Docker使用笔记及MongoDB和redis等配置</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/nginx%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" class="item">Nginx使用笔记</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/vue-cli%E6%90%AD%E5%BB%BA%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8%E5%B9%B6%E4%BD%BF%E7%94%A8vscode%E8%B0%83%E8%AF%95/" class="item">Vue cli搭建单页应用并使用VSCode调试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/%E4%BD%BF%E7%94%A8frp%E8%BF%9B%E8%A1%8Cwindows%E8%BF%9C%E7%A8%8B%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="item">使用frp进行windows远程（内网穿透）</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2wordpress&#43;mysql/" class="item">使用Docker部署WordPress&#43;Mysql</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            <a href="/categories/%E9%9A%8F%E7%AC%94" class="item">随笔</a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/%E8%A2%AB%E5%90%84%E7%A7%8D%E7%A0%B4%E7%8E%A9%E6%84%8F%E6%8A%98%E7%A3%A8%E7%9A%84%E5%87%A0%E5%A4%A9/" class="item">被各种破玩意折磨的几天</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+
+      
+    </div>
+  </section>
+  
+
+  <section class="ui attached segment header-socials">
+    <nav class="ui secondary menu dream-menu dream-socials">
+  
+  
+    <div class="item">
+      <a href="mailto:631320085@163.com">
+        <i class=" mail icon" title="Email"></i>
+      </a>
+    </div>
+  
+
+  
+    <div class="item">
+      <a href="https://twitter.com/yourlostpapa" target="_blank">
+        <i class=" twitter icon" title="Twitter"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://instagram.com/0xfade2018" target="_blank">
+        <i class=" instagram icon" title="Instagram"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://github.com/lin2code" target="_blank">
+        <i class=" github icon" title="GitHub"></i>
+      </a>
+    </div>
+  
+
+  
+    <div class="item">
+      <a href="https://www.stackoverflow.com/users/12997179" target="_blank">
+        <i class=" stack overflow icon" title="StackOverflow"></i>
+      </a>
+    </div>
+  
+
+  
+</nav>
+
+  </section>
+
+  <section class="ui bottom attached center aligned segment">
+    
+      <p>© 2020 林二狗的博客</p>
+    
+
+    <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</p>
+
+    
+  </section>
+</article>
+
+  </div>
+</div>
+
+          </div>
+        </section>
+        <section class="back">
+          <div class="dream-max-width">
+            <div class="ui centered relaxed grid dream-grid dream-back">
+  
+  
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">事件</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <table>
+<thead>
+<tr>
+<th>时间</th>
+<th>事件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2020-09-03</td>
+<td>博客上线</td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">关于我</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <ul>
+<li>🔭 I’m currently working on my own</li>
+<li>🌱 I’m currently learning survive</li>
+<li>👯 I’m looking to collaborate on making money</li>
+<li>🤔 I’m looking for help with cash</li>
+<li>💬 Ask me about everthing</li>
+<li>📫 How to reach me: use money</li>
+<li>😄 Pronouns: poorguy</li>
+<li>⚡ Fun fact: poor</li>
+</ul>
+
+        </div>
+      </article>
+    </section>
+  
+
+  <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    <article>
+      <div class="ui top attached segment">
+        <h3 class="ui header">社交链接</h3>
+      </div>
+      <div class="ui bottom attached segment">
+        <nav class="ui secondary menu dream-menu dream-socials">
+  
+  
+    <div class="item">
+      <a href="mailto:631320085@163.com">
+        <i class="large mail icon" title="Email"></i>
+      </a>
+    </div>
+  
+
+  
+    <div class="item">
+      <a href="https://twitter.com/yourlostpapa" target="_blank">
+        <i class="large twitter icon" title="Twitter"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://instagram.com/0xfade2018" target="_blank">
+        <i class="large instagram icon" title="Instagram"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://github.com/lin2code" target="_blank">
+        <i class="large github icon" title="GitHub"></i>
+      </a>
+    </div>
+  
+
+  
+    <div class="item">
+      <a href="https://www.stackoverflow.com/users/12997179" target="_blank">
+        <i class="large stack overflow icon" title="StackOverflow"></i>
+      </a>
+    </div>
+  
+
+  
+</nav>
+
+      </div>
+    </article>
+  </section>
+
+  <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    
+      <footer class="ui segment">
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。
+      </footer>
+    
+  </section>
+
+  
+  
+</div>
+
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+  window.darkNav =  true 
+</script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/theme.js"></script>
+
+    
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+
+
+
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-177179527-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mongodb on 林二狗的博客</title>
+    <link>https://lin2code.github.io/tags/mongodb/</link>
+    <description>Recent content in mongodb on 林二狗的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <copyright>&lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-nc-sa/4.0/&#34;&gt;&lt;img alt=&#34;知识共享许可协议&#34; style=&#34;border-width:0&#34; src=&#34;https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png&#34; /&gt;&lt;/a&gt;&lt;br /&gt;本作品采用&lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-nc-sa/4.0/&#34;&gt;知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议&lt;/a&gt;进行许可。</copyright>
+    <lastBuildDate>Tue, 29 Sep 2020 18:03:37 +0800</lastBuildDate>
+    
+	<atom:link href="https://lin2code.github.io/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker使用笔记及MongoDB和redis等配置</title>
+      <link>https://lin2code.github.io/posts/docker%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E5%8F%8Amongodb%E5%92%8Credis%E7%AD%89%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Tue, 29 Sep 2020 18:03:37 +0800</pubDate>
+      
+      <guid>https://lin2code.github.io/posts/docker%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E5%8F%8Amongodb%E5%92%8Credis%E7%AD%89%E9%85%8D%E7%BD%AE/</guid>
+      <description>安装docker 使用脚本自动安装docker CentOS 8先安装 containerd.io yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm docker安装脚本 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun 因为Centos8默认使用podman代</description>
+    </item>
+    
+  </channel>
+</rss>
