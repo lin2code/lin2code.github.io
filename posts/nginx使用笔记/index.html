@@ -44,7 +44,7 @@
 
 <style>
   a {
-    color: seagreen !important;
+    color: #2185d0 !important;
   }
 </style>
 
@@ -182,25 +182,13 @@ source /etc/profile
 </span><span style="color:#75715e"></span>    <span style="color:#f92672">client_max_body_size</span> <span style="color:#e6db74">20M</span>; <span style="color:#75715e">#单次上传数据缓冲区最大值
 </span><span style="color:#75715e"></span>    <span style="color:#f92672">underscores_in_headers</span> <span style="color:#66d9ef">on</span>; <span style="color:#75715e">#ctmd 不加这个header中有“_”会忽略
 </span><span style="color:#75715e"></span>
-    <span style="color:#75715e">#docker中运行WordPress时的配置
+    <span style="color:#75715e">#静态文件配置
 </span><span style="color:#75715e"></span>    <span style="color:#f92672">server</span> {
         <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
-        <span style="color:#f92672">server_name</span> <span style="color:#e6db74">xxxx.com</span>; <span style="color:#75715e">#绑定的域名 优先使用server_name和请求域名一致的配置
-</span><span style="color:#75715e"></span>
-        <span style="color:#f92672">access_log</span> <span style="color:#e6db74">/usr/local/nginx/logs/wordpress.access.log</span>; <span style="color:#75715e">#该域名的请求日志配置
-</span><span style="color:#75715e"></span>        <span style="color:#f92672">set</span> $node_port <span style="color:#ae81ff">18080</span>; <span style="color:#75715e">#变量 WordPress在docker中暴露的端口
-</span><span style="color:#75715e"></span>        <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> {
-            <span style="color:#75715e">#各种转发设置 避免WordPress中静态资源路径不是nginx代理的域名 导致加载不出来
-</span><span style="color:#75715e"></span>            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
-            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
-            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> $http_host;
-            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-NginX-Proxy</span> <span style="color:#e6db74">true</span>;
-            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Upgrade</span> $http_upgrade;
-            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Connection</span> <span style="color:#e6db74">&#34;upgrade&#34;</span>;
-            <span style="color:#75715e">#代理的目标地址 docker运行程序时 一定要用IP而不是localhost！！！
-</span><span style="color:#75715e"></span>            <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://127.0.0.1:</span>$node_port$request_uri;
-            <span style="color:#f92672">proxy_redirect</span> <span style="color:#66d9ef">off</span>;
-            <span style="color:#f92672">client_max_body_size</span> <span style="color:#ae81ff">200m</span>; <span style="color:#75715e">#上传文件大小配置 覆盖全局配置
+        <span style="color:#f92672">server_name</span> <span style="color:#e6db74">lin.hoojoe.com</span>;
+        <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> {
+            <span style="color:#f92672">root</span> <span style="color:#e6db74">/opt/lin2code.github.io</span>; <span style="color:#75715e">#静态文件路径
+</span><span style="color:#75715e"></span>            <span style="color:#f92672">index</span> <span style="color:#e6db74">index.html</span>; <span style="color:#75715e">#起始文件
 </span><span style="color:#75715e"></span>        }
     }
 
@@ -241,6 +229,28 @@ source /etc/profile
             <span style="color:#f92672">rewrite</span>  <span style="color:#e6db74">^/hangfire/(.*)</span>$ <span style="color:#e6db74">/hangfire/</span>$1 <span style="color:#e6db74">break</span>;
             <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">https://localhost:8011</span>;
         }
+    }
+
+    <span style="color:#75715e">#docker中运行WordPress时的配置
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">server</span> {
+        <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
+        <span style="color:#f92672">server_name</span> <span style="color:#e6db74">xxxx.com</span>; <span style="color:#75715e">#绑定的域名 优先使用server_name和请求域名一致的配置
+</span><span style="color:#75715e"></span>
+        <span style="color:#f92672">access_log</span> <span style="color:#e6db74">/usr/local/nginx/logs/wordpress.access.log</span>; <span style="color:#75715e">#该域名的请求日志配置
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">set</span> $node_port <span style="color:#ae81ff">18080</span>; <span style="color:#75715e">#变量 WordPress在docker中暴露的端口
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> {
+            <span style="color:#75715e">#各种转发设置 避免WordPress中静态资源路径不是nginx代理的域名 导致加载不出来
+</span><span style="color:#75715e"></span>            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
+            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
+            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> $http_host;
+            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-NginX-Proxy</span> <span style="color:#e6db74">true</span>;
+            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Upgrade</span> $http_upgrade;
+            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Connection</span> <span style="color:#e6db74">&#34;upgrade&#34;</span>;
+            <span style="color:#75715e">#代理的目标地址 docker运行程序时 一定要用IP而不是localhost！！！
+</span><span style="color:#75715e"></span>            <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://127.0.0.1:</span>$node_port$request_uri;
+            <span style="color:#f92672">proxy_redirect</span> <span style="color:#66d9ef">off</span>;
+            <span style="color:#f92672">client_max_body_size</span> <span style="color:#ae81ff">200m</span>; <span style="color:#75715e">#上传文件大小配置 覆盖全局配置
+</span><span style="color:#75715e"></span>        }
     }
 }
 </code></pre></div></article>
@@ -346,6 +356,8 @@ source /etc/profile
     
       <a class="ui label" href="/tags/redis" title="redis">redis</a>
     
+      <a class="ui label" href="/tags/shadowsocks" title="shadowsocks">shadowsocks</a>
+    
       <a class="ui label" href="/tags/vscode" title="vscode">vscode</a>
     
       <a class="ui label" href="/tags/vue" title="vue">vue</a>
@@ -354,6 +366,8 @@ source /etc/profile
     
       <a class="ui label" href="/tags/wordpress" title="wordpress">wordpress</a>
     
+      <a class="ui label" href="/tags/%E4%BB%A3%E7%90%86" title="代理">代理</a>
+    
       <a class="ui label" href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F" title="内网穿透">内网穿透</a>
     
       <a class="ui label" href="/tags/%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8" title="单页应用">单页应用</a>
@@ -361,6 +375,8 @@ source /etc/profile
       <a class="ui label" href="/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86" title="反向代理">反向代理</a>
     
       <a class="ui label" href="/tags/%E5%9D%91%E7%88%B9" title="坑爹">坑爹</a>
+    
+      <a class="ui label" href="/tags/%E7%BF%BB%E5%A2%99" title="翻墙">翻墙</a>
     
       <a class="ui label" href="/tags/%E8%B0%83%E8%AF%95" title="调试">调试</a>
     
@@ -408,6 +424,12 @@ source /etc/profile
           </div>
           <div class="content">
             <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a href="/posts/%E6%90%AD%E5%BB%BAshadowsocks%E4%BB%A3%E7%90%86/" class="item">搭建Shadowsocks代理</a>
+                </div>
+              </div>
             
               <div class="item">
                 <div class="content">

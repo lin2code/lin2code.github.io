@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
     <copyright>&lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-nc-sa/4.0/&#34;&gt;&lt;img alt=&#34;知识共享许可协议&#34; style=&#34;border-width:0&#34; src=&#34;https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png&#34; /&gt;&lt;/a&gt;&lt;br /&gt;本作品采用&lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-nc-sa/4.0/&#34;&gt;知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议&lt;/a&gt;进行许可。</copyright>
-    <lastBuildDate>Tue, 29 Sep 2020 20:26:25 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 30 Sep 2020 15:44:59 +0800</lastBuildDate>
     
 	<atom:link href="https://lin2code.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>搭建Shadowsocks代理</title>
+      <link>https://lin2code.github.io/posts/%E6%90%AD%E5%BB%BAshadowsocks%E4%BB%A3%E7%90%86/</link>
+      <pubDate>Wed, 30 Sep 2020 15:44:59 +0800</pubDate>
+      
+      <guid>https://lin2code.github.io/posts/%E6%90%AD%E5%BB%BAshadowsocks%E4%BB%A3%E7%90%86/</guid>
+      <description>买一台你懂的服务器 新建一个json文件放到服务器上 { &amp;#34;server&amp;#34;:&amp;#34;0.0.0.0&amp;#34;, &amp;#34;server_port&amp;#34;:12345, &amp;#34;local_address&amp;#34;: &amp;#34;127.0.0.1&amp;#34;, &amp;#34;local_port&amp;#34;:1080, &amp;#34;password&amp;#34;:&amp;#34;pwd&amp;#34;, &amp;#34;timeout&amp;#34;:800, &amp;#34;method&amp;#34;:&amp;#34;aes-256-cfb&amp;#34;, &amp;#34;fast_open&amp;#34;: false, &amp;#34;workers&amp;#34;: 2 } server_port：客户端和服务器通信的端口 passwor</description>
+    </item>
     
     <item>
       <title>吉他谱 young for you</title>
