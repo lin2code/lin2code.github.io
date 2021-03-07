@@ -236,7 +236,7 @@ gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc
 <p>配置修改启用账号并允许远程连接</p>
 <p><code>vim /etc/mongod.conf</code><br>
 net.bindIp 修改值为 0.0.0.0允许所有IP连接<br>
-security.authorization 修改值为 enable<br>
+security.authorization 修改值为 enabled<br>
 重启</p>
 <p>手动运行MongoDB建议以集群方式启动</p>
 <ul>
@@ -249,6 +249,9 @@ security.authorization 修改值为 enable<br>
 分配权限 <code>db.grantRolesToUser(&quot;adminabc&quot;, [ { role:&quot;dbOwner&quot;, db:&quot;abcdb&quot;} ]);</code><br>
 或<br>
 修改权限 <code>db.updateUser(&quot;adminabc&quot;,{roles:[ {role:&quot;root&quot;,db:&quot;admin&quot;} ]})</code></p>
+<p>robo3t中可以在admin数据库或其它数据库中右键users文件夹添加或删除用户<br>
+应用应使用具体数据库中的user访问数据库<br>
+管理员使用admin库中的user</p>
 <hr>
 <h2 id="运行redis">运行redis</h2>
 <ul>
