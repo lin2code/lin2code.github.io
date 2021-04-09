@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Docker使用笔记及MongoDB和redis等配置 | 林二狗</title>
+    <title>Docker、MongoDB和Redis | 林二狗</title>
 
     
 <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -13,27 +13,27 @@
 
 
 <meta name="author" content="林二狗" />
-<meta name="description" content="安装docker 使用脚本自动安装docker CentOS 8先安装 containerd.io yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm docker安装脚本 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun 因为Centos8默认使用podman代" />
+<meta name="description" content="Docker 使用脚本自动安装docker CentOS 8先安装 containerd.io yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm docker安装脚本 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun 因为Centos8默认使用podman代替docker" />
 
 
 
 <meta name="generator" content="Hugo 0.74.3" />
 
-<link rel="canonical" href="https://lin2code.github.io/posts/docker%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E5%8F%8Amongodb%E5%92%8Credis%E7%AD%89%E9%85%8D%E7%BD%AE/" />
+<link rel="canonical" href="https://lin2code.github.io/posts/dockermongodb%E5%92%8Credis/" />
 
 
-<meta property="og:title" content="Docker使用笔记及MongoDB和redis等配置" />
-<meta property="og:description" content="安装docker 使用脚本自动安装docker CentOS 8先安装 containerd.io yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm docker安装脚本 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun 因为Centos8默认使用podman代" />
+<meta property="og:title" content="Docker、MongoDB和Redis" />
+<meta property="og:description" content="Docker 使用脚本自动安装docker CentOS 8先安装 containerd.io yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm docker安装脚本 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun 因为Centos8默认使用podman代替docker" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://lin2code.github.io/posts/docker%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E5%8F%8Amongodb%E5%92%8Credis%E7%AD%89%E9%85%8D%E7%BD%AE/" />
+<meta property="og:url" content="https://lin2code.github.io/posts/dockermongodb%E5%92%8Credis/" />
 <meta property="article:published_time" content="2020-09-29T18:03:37+08:00" />
 <meta property="article:modified_time" content="2020-09-29T18:03:37+08:00" />
 
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Docker使用笔记及MongoDB和redis等配置"/>
-<meta name="twitter:description" content="安装docker 使用脚本自动安装docker CentOS 8先安装 containerd.io yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm docker安装脚本 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun 因为Centos8默认使用podman代"/>
+<meta name="twitter:title" content="Docker、MongoDB和Redis"/>
+<meta name="twitter:description" content="Docker 使用脚本自动安装docker CentOS 8先安装 containerd.io yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm docker安装脚本 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun 因为Centos8默认使用podman代替docker"/>
 
 
 <link rel="stylesheet" href="/css/semantic.min.css" />
@@ -93,7 +93,7 @@
     <section class="ui top attached segment" id="dream-save-post-as-img">
       <header style="margin-top: 0 !important;">
         <h1 class="ui large header">
-          Docker使用笔记及MongoDB和redis等配置
+          Docker、MongoDB和Redis
           <div class="sub header">
             @
             
@@ -102,7 +102,7 @@
               
             
             · Tuesday, Sep 29, 2020
-            · 4 分钟阅读
+            · 3 分钟阅读
             · 更新于 Sep 29, 2020
           </div>
         </h1>
@@ -112,7 +112,7 @@
         <img class="ui image" style="margin-top: 2rem;" src="https://blog-lin2code-1252382346.file.myqcloud.com/img/cover7.jpg" />
       
 
-      <article style="margin-top: 2rem;"><h2 id="安装docker">安装docker</h2>
+      <article style="margin-top: 2rem;"><h2 id="docker">Docker</h2>
 <ul>
 <li>使用脚本自动安装docker</li>
 </ul>
@@ -145,8 +145,7 @@
 <code>systemctl enable docker</code></p>
 </li>
 </ul>
-<hr>
-<h2 id="常用命令">常用命令</h2>
+<h3 id="常用命令">常用命令</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">一、基本命令
 docker version 查看docker版本
 docker info 查看docker详细信息
@@ -209,9 +208,9 @@ docker cp 容器ID:容器内的文件路径 宿主机路径从容器内拷贝文
 <li>列出无用卷 <code>docker volume ls -qf dangling=true</code></li>
 </ul>
 <hr>
-<h2 id="运行mongodb">运行MongoDB</h2>
+<h2 id="mongodb">MongoDB</h2>
 <ul>
-<li>docker运行</li>
+<li>docker安装</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker pull mongo
 docker run -itd --name mongodb -p 37017:27017 mongo --auth
@@ -219,43 +218,51 @@ docker exec -it mongodb mongo admin
 </code></pre></div><p>注意 &ndash;auth 参数 启用数据库账号验证 如果创建容器的时候不启用 后续docker中很难修改</p>
 <p>docker 集群部署和账号设置待研究</p>
 <ul>
-<li>手动运行</li>
+<li>手动安装</li>
 </ul>
-<p>配置yum安装源 <code>vim /etc/yum.repos.d/mongodb-org-4.2.repo</code> 写入以下内容</p>
-<pre><code class="language-conf" data-lang="conf">[mongodb-org-4.2]
+<p>配置yum安装源，创建文件<code>/etc/yum.repos.d/mongodb-org-4.4.repo</code><br>
+写入以下内容</p>
+<pre><code class="language-conf" data-lang="conf">[mongodb-org-4.4]
 name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/x86_64/
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.4/x86_64/
 gpgcheck=1
 enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc
-</code></pre><p>url可替换为官网最新版本</p>
-<p><code>sudo yum install -y mongodb-org</code> 安装<br>
-<code>sudo systemctl start mongod</code> 启动<br>
-<code>sudo systemctl restart mongod</code> 重启<br>
-<code>sudo systemctl enable mongod</code> 开机启动</p>
-<p>配置修改启用账号并允许远程连接</p>
-<p><code>vim /etc/mongod.conf</code><br>
-net.bindIp 修改值为 0.0.0.0允许所有IP连接<br>
-security.authorization 修改值为 enabled<br>
-重启</p>
-<p>手动运行MongoDB建议以集群方式启动</p>
+gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
+</code></pre><p><code>yum install -y mongodb-org</code> 安装<br>
+<code>systemctl start mongod</code> 启动<br>
+<code>systemctl enable mongod</code> 开机启动</p>
+<p>配置文件：<code>/etc/mongod.conf</code><br>
+数据文件：<code>/var/lib/mongo/</code><br>
+日志文件：<code>/var/log/mongodb</code></p>
 <ul>
-<li>初始化用户</li>
+<li>初始化</li>
 </ul>
-<p>mongo shell中执行命令（docker中使用命令进入容器的 mongo shell）</p>
-<p>创建用户<br>
-<code>db.createUser({ user: 'adminabc', pwd: 'abcd123', roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] });</code></p>
-<p>如果权限不够<br>
-分配权限 <code>db.grantRolesToUser(&quot;adminabc&quot;, [ { role:&quot;dbOwner&quot;, db:&quot;abcdb&quot;} ]);</code><br>
-或<br>
-修改权限 <code>db.updateUser(&quot;adminabc&quot;,{roles:[ {role:&quot;root&quot;,db:&quot;admin&quot;} ]})</code></p>
-<p>robo3t中可以在admin数据库或其它数据库中右键users文件夹添加或删除用户<br>
-应用应使用具体数据库中的user访问数据库<br>
-管理员使用admin库中的user</p>
+<p>创建root用户</p>
+<ol>
+<li>
+<p><code>mongo</code> 进入mongo shell</p>
+</li>
+<li>
+<p><code>use admin</code> 进入管理库</p>
+</li>
+<li>
+<p><code>db.createUser({ user: 'root', pwd: 'xxx', roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] });</code> 创建root用户</p>
+</li>
+</ol>
+<p>修改配置文件允许远程连接</p>
+<pre><code class="language-conf" data-lang="conf"># network interfaces
+net:
+  port: 27017
+  bindIp: 0.0.0.0
+
+security:
+  authorization: enabled
+</code></pre><p>重启生效 <code>systemctl restart mongod</code></p>
+<p>然后robo3t客户端连接后可创建数据库和用户</p>
 <hr>
-<h2 id="运行redis">运行redis</h2>
+<h2 id="redis">Redis</h2>
 <ul>
-<li>docker运行</li>
+<li>docker安装</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker pull redis
 <span style="color:#75715e"># 在root目录添加redis相关文件夹和配置</span>
@@ -271,20 +278,18 @@ redis
 redis-server /usr/local/etc/redis/redis.conf
 </code></pre></div><p><code>腾讯云centos8.0中启动多个redis容器时，每个容器内部的配置端口最好不一样，不要都是6379，一样时很有可能把服务器卡死</code></p>
 <ul>
-<li>手动运行</li>
+<li>手动安装</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum install redis
 systemctl start redis
 systemctl enable redis
 </code></pre></div><ul>
-<li>配置等</li>
+<li>配置</li>
 </ul>
-<p><code>vim /etc/redis.conf</code><br>
+<p>修改文件 <code>/etc/redis.conf</code><br>
 注释 <code>#bind 127.0.0.1</code> 允许任意ip连接<br>
-取消注释 <code>requirepass abcdefghijk</code> 设置连接密码</p>
-<p><code>systemctl status redis</code> 查看运行状态<br>
-<code>ss -an | grep 6379</code> 查看端口是否listen</p>
-<p>客户端推荐使用AnotherRedisDesktopManager</p>
+配置 <code>requirepass xxxxx</code> 设置连接密码</p>
+<p><code>systemctl restart redis</code> 重启生效</p>
 </article>
     </section>
 
@@ -320,8 +325,8 @@ systemctl enable redis
 
 
           var disqus_config = function () {
-            this.page.url = 'https:\/\/lin2code.github.io\/posts\/docker%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E5%8F%8Amongodb%E5%92%8Credis%E7%AD%89%E9%85%8D%E7%BD%AE\/';  
-            this.page.identifier = '\/posts\/docker%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E5%8F%8Amongodb%E5%92%8Credis%E7%AD%89%E9%85%8D%E7%BD%AE\/'; 
+            this.page.url = 'https:\/\/lin2code.github.io\/posts\/dockermongodb%E5%92%8Credis\/';  
+            this.page.identifier = '\/posts\/dockermongodb%E5%92%8Credis\/'; 
           };
 
           (function() { 
@@ -529,7 +534,7 @@ systemctl enable redis
             
               <div class="item">
                 <div class="content">
-                  <a href="/posts/docker%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E5%8F%8Amongodb%E5%92%8Credis%E7%AD%89%E9%85%8D%E7%BD%AE/" class="item">Docker使用笔记及MongoDB和redis等配置</a>
+                  <a href="/posts/dockermongodb%E5%92%8Credis/" class="item">Docker、MongoDB和Redis</a>
                 </div>
               </div>
             
