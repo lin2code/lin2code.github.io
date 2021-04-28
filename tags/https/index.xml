@@ -18,7 +18,7 @@
       <pubDate>Tue, 29 Sep 2020 16:43:17 +0800</pubDate>
       
       <guid>https://lin2code.github.io/posts/nginx%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</guid>
-      <description>Nginx安装启动 1.先安装编译和支持https的组件 yum install gcc-c++ yum install -y pcre pcre-devel yum install -y zlib zlib-devel yum install -y openssl openssl-devel 2.官网下载.tar.gz安装包 执行以下命令安装 tar</description>
+      <description>Nginx安装启动 centos 8 安装 yum install nginx systemctl enable nginx systemctl start nginx 其它版本 1.先安装编译和支持https的组件 yum install gcc-c++ yum install -y pcre pcre-devel yum install -y zlib zlib-devel yum install -y openssl openssl-devel 2.官网下载.t</description>
     </item>
     
   </channel>
